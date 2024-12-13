@@ -7,3 +7,7 @@
 3. Settings
 4. 滑倒最下面，Profile，Import
 5. 导入 quantumult_x.config 文件即可
+
+## Updates
+
+- 2024-12-13 QuantumultX: 修复并更新了remote_filter

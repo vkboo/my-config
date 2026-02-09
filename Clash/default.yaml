@@ -41,7 +41,7 @@ dns:
 proxy-providers:
   ASH:
     type: http
-    url: "{{https://portal.ash.do/#/invite}}"
+    url: "{{https://www.ash6.com/#/register?code=SRcGwthm}}"
     interval: 86400
     health-check:
       enable: true

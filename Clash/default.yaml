@@ -1,233 +1,245 @@
-# Auto-generated runtime config, do not edit.
-# 自动生成的运行配置，请勿编辑。
+# ClashMac Default - Replace YOUR_SUBSCRIPTION_URL to start
+
 mode: rule
 mixed-port: 7890
 unified-delay: true
 tcp-concurrent: true
+
 profile:
   store-selected: true
   store-fake-ip: true
+
 sniffer:
   enable: true
   sniff:
     HTTP:
-      ports:
-      - 80
-      - 8080-8880
+      ports: [80, 8080-8880]
       override-destination: true
     TLS:
-      ports:
-      - 443
-      - 8443
+      ports: [443, 8443]
     QUIC:
-      ports:
-      - 443
-      - 8443
+      ports: [443, 8443]
   skip-domain:
-  - "Mijia Cloud"
-  - "+.push.apple.com"
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
 dns:
   enable: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
+    - 223.5.5.5
+    - 119.29.29.29
   fake-ip-filter:
-  - "*.lan"
-  - "*.local"
-  - rule-set:Lan
-  - rule-set:ChinaMax
+    - "*.lan"
+    - "*.local"
+    - rule-set:Lan
+    - rule-set:ChinaMax
+
+# Add your subscription URL here
 proxy-providers:
-  ASH:
+  Primary:
     type: http
-    url: "{{https://www.ash6.com/#/register?code=SRcGwthm}}"
+    url: "{{PRIMARY_SUB_URL}}"
     interval: 86400
     health-check:
       enable: true
       url: 'https://www.google.com/generate_204'
       interval: 300
+  Backup:
+    type: http
+    url: "{{BACKUP_SUB_URL}}"
+    interval: 86400
+    health-check:
+      enable: true
+      url: 'https://www.google.com/generate_204'
+      interval: 300
+
+# Or add proxies directly
 proxies:
+  # - {name: MyProxy, type: ss, server: example.com, port: 8388, cipher: aes-256-gcm, password: "password"}
+
 proxy-groups:
-- name: Proxy
-  type: select
-  proxies:
-  - Hong Kong
-  - Singapore
-  - Taiwan
-  - United States
-  - Japan
-  - Korea
-  - Other
-- name: Hong Kong
-  type: select
-  use:
-  - ASH
-  filter: "(?i)(香港|HK|Hong\\s?Kong|HKG)"
-  proxies:
-  - HK Auto
-- name: Singapore
-  type: select
-  use:
-  - ASH
-  filter: "(?i)(新加坡|SG|Singapore)"
-  proxies:
-  - SG Auto
-- name: Taiwan
-  type: select
-  use:
-  - ASH
-  filter: "(?i)(台湾|台灣|TW|Taiwan)"
-  proxies:
-  - TW Auto
-- name: United States
-  type: select
-  use:
-  - ASH
-  filter: "(?i)(美国|美國|US|USA|United\\s?States)"
-  proxies:
-  - US Auto
-- name: Japan
-  type: select
-  use:
-  - ASH
-  filter: "(?i)(日本|JP|Japan)"
-  proxies:
-  - JP Auto
-- name: Korea
-  type: select
-  use:
-  - ASH
-  filter: "(?i)(韩国|韓國|KR|Korea)"
-  proxies:
-  - KR Auto
-- name: Other
-  type: select
-  use:
-  - ASH
-  exclude-filter: "(?i)(香港|HK|Hong\\s?Kong|HKG|新加坡|SG|Singapore|台湾|台灣|TW|Taiwan|美国|美國|US|USA|United\\s?States|日本|JP|Japan|韩国|韓國|KR|Korea)"
-- name: HK Auto
-  type: url-test
-  use:
-  - ASH
-  filter: "(?i)(香港|HK|Hong\\s?Kong|HKG)"
-  url: "https://www.gstatic.com/generate_204"
-  interval: 300
-  tolerance: 50
-- name: SG Auto
-  type: url-test
-  use:
-  - ASH
-  filter: "(?i)(新加坡|SG|Singapore)"
-  url: "https://www.gstatic.com/generate_204"
-  interval: 300
-  tolerance: 50
-- name: TW Auto
-  type: url-test
-  use:
-  - ASH
-  filter: "(?i)(台湾|台灣|TW|Taiwan)"
-  url: "https://www.gstatic.com/generate_204"
-  interval: 300
-  tolerance: 50
-- name: US Auto
-  type: url-test
-  use:
-  - ASH
-  filter: "(?i)(美国|美國|US|USA|United\\s?States)"
-  url: "https://www.gstatic.com/generate_204"
-  interval: 300
-  tolerance: 50
-- name: JP Auto
-  type: url-test
-  use:
-  - ASH
-  filter: "(?i)(日本|JP|Japan)"
-  url: "https://www.gstatic.com/generate_204"
-  interval: 300
-  tolerance: 50
-- name: KR Auto
-  type: url-test
-  use:
-  - ASH
-  filter: "(?i)(韩国|韓國|KR|Korea)"
-  url: "https://www.gstatic.com/generate_204"
-  interval: 300
-  tolerance: 50
+  - name: Proxy
+    type: select
+    proxies: [Hong Kong, Singapore, Taiwan, United States, Japan, Korea, Other]
+  - name: HK Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png"
+    use: [Primary]
+    filter: "(?i)(香港|HK|Hong\\s?Kong|HKG)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: HK Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png"
+    use: [Backup]
+    filter: "(?i)(香港|HK|Hong\\s?Kong|HKG)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Hong Kong
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png"
+    proxies: [HK Primary, HK Backup]
+  - name: SG Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png"
+    use: [Primary]
+    filter: "(?i)(新加坡|SG|Singapore)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: SG Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png"
+    use: [Backup]
+    filter: "(?i)(新加坡|SG|Singapore)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Singapore
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png"
+    proxies: [SG Primary, SG Backup]
+  - name: TW Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png"
+    use: [Primary]
+    filter: "(?i)(台湾|台灣|TW|Taiwan)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: TW Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png"
+    use: [Backup]
+    filter: "(?i)(台湾|台灣|TW|Taiwan)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Taiwan
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png"
+    proxies: [TW Primary, TW Backup]
+  - name: US Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png"
+    use: [Primary]
+    filter: "(?i)(美国|美國|US|USA|United\\s?States)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: US Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png"
+    use: [Backup]
+    filter: "(?i)(美国|美國|US|USA|United\\s?States)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: United States
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png"
+    proxies: [US Primary, US Backup]
+  - name: JP Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png"
+    use: [Primary]
+    filter: "(?i)(日本|JP|Japan)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: JP Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png"
+    use: [Backup]
+    filter: "(?i)(日本|JP|Japan)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Japan
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png"
+    proxies: [JP Primary, JP Backup]
+  - name: KR Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png"
+    use: [Primary]
+    filter: "(?i)(韩国|韓國|KR|Korea)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: KR Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png"
+    use: [Backup]
+    filter: "(?i)(韩国|韓國|KR|Korea)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Korea
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png"
+    proxies: [KR Primary, KR Backup]
+  - name: Other Primary
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png"
+    use: [Primary]
+    exclude-filter: "(?i)(香港|HK|Hong\\s?Kong|HKG|新加坡|SG|Singapore|台湾|台灣|TW|Taiwan|美国|美國|US|USA|United\\s?States|日本|JP|Japan|韩国|韓國|KR|Korea)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Other Backup
+    type: url-test
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png"
+    use: [Backup]
+    exclude-filter: "(?i)(香港|HK|Hong\\s?Kong|HKG|新加坡|SG|Singapore|台湾|台灣|TW|Taiwan|美国|美國|US|USA|United\\s?States|日本|JP|Japan|韩国|韓國|KR|Korea)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+  - name: Other
+    type: fallback
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png"
+    proxies: [Other Primary, Other Backup]
+
 rules:
-- AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT
-- RULE-SET,Lan,DIRECT
-- RULE-SET,Direct,DIRECT
-- RULE-SET,OpenAI,Taiwan
-- RULE-SET,Gemini,Taiwan
-- RULE-SET,Proxy,Proxy
-- RULE-SET,ChinaMax,DIRECT
-- GEOIP,CN,DIRECT,no-resolve
-- MATCH,Proxy
-classical:
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,OpenAI,Taiwan
+  - RULE-SET,Gemini,Taiwan
+  - RULE-SET,Anthropic,Taiwan
+  - RULE-SET,Proxy,Proxy
+  - RULE-SET,ChinaMax,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
+  - MATCH,Proxy
+
+classical: &classical
   type: http
   behavior: classical
   format: yaml
   interval: 86400
+
 rule-providers:
   Lan:
-    <<:
-      type: http
-      behavior: classical
-      format: yaml
-      interval: 86400
+    <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml"
   Direct:
-    <<:
-      type: http
-      behavior: classical
-      format: yaml
-      interval: 86400
+    <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml"
   Proxy:
-    <<:
-      type: http
-      behavior: classical
-      format: yaml
-      interval: 86400
+    <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml"
   OpenAI:
-    <<:
-      type: http
-      behavior: classical
-      format: yaml
-      interval: 86400
+    <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
   Gemini:
-    <<:
-      type: http
-      behavior: classical
-      format: yaml
-      interval: 86400
+    <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml"
+  Anthropic:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Anthropic/Anthropic.yaml"
   ChinaMax:
-    <<:
-      type: http
-      behavior: classical
-      format: yaml
-      interval: 86400
+    <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"
-external-controller: 127.0.0.1:9090
-external-ui: ui
-external-ui-name: zashboard
-external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
-ipv6: false
-allow-lan: false
-authentication: []
-skip-auth-prefixes:
-- 127.0.0.0/8
-find-process-mode: always
-log-level: warning
-secret: clashmac2026
-geo-update-interval: 24
-geox-url:
-  mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb
-  geosite: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
-  asn: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
-  geoip: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
-global-ua: ClashMeta/26.7-beta.4

@@ -1,4 +1,5 @@
 # ClashMac Default - Replace YOUR_SUBSCRIPTION_URL to start
+# 最后更新时间: 2026年2月10日
 
 mode: rule
 mixed-port: 7890
@@ -210,6 +211,7 @@ rules:
   - RULE-SET,OpenAI,Taiwan
   - RULE-SET,Gemini,Taiwan
   - RULE-SET,Anthropic,Taiwan
+  - RULE-SET,Telegram,Singapore
   - RULE-SET,Proxy,Proxy
   - RULE-SET,ChinaMax,DIRECT
   - GEOIP,CN,DIRECT,no-resolve
@@ -240,6 +242,9 @@ rule-providers:
   Anthropic:
     <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Anthropic/Anthropic.yaml"
+  Telegram:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml"
   ChinaMax:
     <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"

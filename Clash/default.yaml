@@ -208,6 +208,9 @@ proxy-groups:
 rules:
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Direct,DIRECT
+  - RULE-SET,iCloud,DIRECT
+  - RULE-SET,AppStore,DIRECT
+  - RULE-SET,AppleProxy,Proxy
   - RULE-SET,OpenAI,Taiwan
   - RULE-SET,Gemini,Taiwan
   - RULE-SET,Anthropic,Taiwan
@@ -230,6 +233,15 @@ rule-providers:
   Direct:
     <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml"
+  iCloud:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/iCloud/iCloud.yaml"
+  AppStore:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppStore/AppStore.yaml"
+  AppleProxy:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleProxy/AppleProxy.yaml"
   Proxy:
     <<: *classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml"

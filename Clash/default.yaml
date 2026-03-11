@@ -215,6 +215,7 @@ rules:
   - RULE-SET,Gemini,Taiwan
   - RULE-SET,Anthropic,Taiwan
   - RULE-SET,Telegram,Singapore
+  - DOMAIN-SUFFIX,diabrowser.engineering,Taiwan
   - PROCESS-NAME,Dia,Taiwan
   - RULE-SET,Proxy,Proxy
   - RULE-SET,ChinaMax,DIRECT

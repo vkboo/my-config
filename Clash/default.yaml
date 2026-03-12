@@ -213,6 +213,8 @@ rules:
   - RULE-SET,AppleProxy,Proxy
   - RULE-SET,OpenAI,Taiwan
   - RULE-SET,Gemini,Taiwan
+  - DOMAIN-SUFFIX,notebooklm.google,Taiwan
+  - DOMAIN-SUFFIX,notebooklm.google.com,Taiwan
   - RULE-SET,Anthropic,Taiwan
   - RULE-SET,Telegram,Singapore
   - DOMAIN-SUFFIX,diabrowser.engineering,Taiwan

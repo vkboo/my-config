@@ -215,6 +215,7 @@ rules:
   - RULE-SET,Gemini,Taiwan
   - DOMAIN-SUFFIX,notebooklm.google,Taiwan
   - DOMAIN-SUFFIX,notebooklm.google.com,Taiwan
+  - DOMAIN,stitch.withgoogle.com,Taiwan
   - RULE-SET,Claude,Taiwan
   - RULE-SET,Telegram,Singapore
   - DOMAIN-SUFFIX,diabrowser.com,Taiwan
